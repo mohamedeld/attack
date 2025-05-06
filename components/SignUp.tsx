@@ -41,7 +41,7 @@ const SignUp = () => {
                 toast.error(res?.message);
                 return;
             }
-            toast.success(res?.message);
+            toast.success("Register successfully");
             router.replace("/login")
         }catch(error){
             if (axios.isAxiosError(error) && error?.response) {

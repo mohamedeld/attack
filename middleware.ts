@@ -7,7 +7,7 @@ export async function middleware(req: NextRequest) {
 
   const { pathname } = req.nextUrl;
 
-  const authPages = ['/login', '/register','/','/attacks','/dashboard'];
+  const authPages = ['/login', '/register'];
 
   // 🔒 Prevent logged-in users from accessing auth pages
   if (isLoggedIn && authPages.includes(pathname)) {

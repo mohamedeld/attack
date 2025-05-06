@@ -27,7 +27,7 @@ const dashSidebar = [
     {
         title:"Questions",
         icon:<MessageCircleQuestion />,
-        link:"/admin-questions"
+        link:"/quizes"
     }
 ]
 

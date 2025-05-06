@@ -1,12 +1,16 @@
+"use server";
 import axios from "axios";
+import { cookies } from "next/headers";
+import { baseUrl } from "./utils";
+
 
 const axiosInstance= axios.create({
-    baseURL:"https://api.openai.com/v1/api/",
+    baseURL:baseUrl,
 })
 
 axiosInstance.interceptors.request.use(
-    (config) => {
-        const token = localStorage.getItem("token");
+    async (config) => {
+        const token = (await cookies())?.get("token")?.value;
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
