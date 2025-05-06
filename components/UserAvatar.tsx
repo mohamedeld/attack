@@ -1,0 +1,30 @@
+"use client";
+
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import Link from "next/link";
+
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
+const UserAvatar = () => {
+  return (
+    <Popover>
+      <PopoverTrigger className="cursor-pointer">
+        <Avatar>
+          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+          <AvatarFallback>CN</AvatarFallback>
+        </Avatar>
+      </PopoverTrigger>
+      <PopoverContent>
+        <div>
+          <Link href="/profile">Profile</Link>
+        </div>
+      </PopoverContent>
+    </Popover>
+  );
+};
+
+export default UserAvatar;
