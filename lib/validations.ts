@@ -46,3 +46,8 @@ export const userSchema = z.object({
         message: "Phone must be a valid Egyptian number",
       }),
 })
+
+export const feedbackSchema = z.object({
+    user:z.string({message:"UserName is required"}),
+    content: z.string({message:"content is required"})
+})

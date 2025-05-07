@@ -90,6 +90,35 @@ export const getQuizes = unstable_cache(async (token:string)=>{
 },['quizes'],{tags:['quizes']});
 
 
+export const getFeedbacks = unstable_cache(async (token:string)=>{
+    try{
+        const res = await axios.get(`${baseUrl}feedback`,{
+            headers:{
+                Authorization:`Bearer ${token}`
+            }
+        });
+        if(res?.status === 200){
+            return {
+                success:true,
+                data:res?.data
+            }
+        }
+    }catch(error){
+        if (axios.isAxiosError(error) && error?.response) {
+            return {
+                success:false,
+                message:error?.response?.data?.message
+            }
+          } else {
+            return {
+                success:false,
+                message:"Something went wrong"
+            }
+          }
+    }
+},['feedbacks'],{tags:['feedbacks']});
+
+
 
 export const getQuiz = async (id:string)=>{
     try{
