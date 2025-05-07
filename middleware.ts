@@ -29,9 +29,10 @@ export async function middleware(req: NextRequest) {
 
 export const config = {
   matcher: [
-    '/',
-    '/attacks',
-    '/questions',
-    '/feedback'
+    
   ],
 };
+// '/',
+//     '/attacks',
+//     '/questions',
+//     '/feedback'
