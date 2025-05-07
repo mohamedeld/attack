@@ -2,6 +2,7 @@
 
 import axiosInstance from "@/lib/axiosInstance";
 import axios from "axios";
+import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { cache } from "react";
 
@@ -97,5 +98,61 @@ export const logout = async ()=>{
             success:false,
             message:(error as Error)?.message || "Something went wrong"
         }
+    }
+}
+
+export const updateUser = async (id:string,userName:string)=>{
+    try{
+        const res = await axiosInstance.put(`auth/${id}`,userName);
+        if(res?.status === 200){
+            revalidateTag("users");
+            return {
+                success:true,
+                data:res?.data
+            }
+        }
+    }catch(error){
+        if (axios.isAxiosError(error) && error?.response) {
+            return {
+                success:false,
+                message:error?.response?.data?.message
+            }
+          } else {
+            return {
+                success:false,
+                message:"Something went wrong"
+            }
+          }
+    }
+}
+
+export const deleteUser = async (id:string)=>{
+    try{
+        const res = await axiosInstance.delete(`auth/${id}`);
+        if(res?.status === 200){
+            (await cookies()).set("token", "", {
+                httpOnly: true,
+                maxAge: 0, // Expire immediately
+                secure: true,
+                sameSite: "lax"
+            });
+            revalidateTag("users");
+            return {
+                success:true,
+                message:"User deleted successfully"
+            }
+        }
+    }catch(error){
+        if (axios.isAxiosError(error) && error?.response) {
+            return {
+                success:false,
+                message:error?.response?.data?.message
+            }
+          } else {
+            return {
+                success:false,
+                message:"Something went wrong"
+            }
+          }
     }
 }

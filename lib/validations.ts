@@ -38,3 +38,11 @@ export const quizSchema = z.object({
 });
 
 export type QuizData = z.infer<typeof quizSchema>;
+
+
+export const userSchema = z.object({
+    userName:z.string({message:"UserName is required"}),
+    phone: z.string({message:"Email is required"}).regex(/^01[0-2,5]{1}[0-9]{8}$/, {
+        message: "Phone must be a valid Egyptian number",
+      }),
+})

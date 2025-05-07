@@ -8,9 +8,11 @@ import {
 import Link from "next/link";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "./ui/button";
+import { logout } from "@/actions/auth.action";
 
 const UserAvatar = () => {
-  return (
+    return (
     <Popover>
       <PopoverTrigger className="cursor-pointer">
         <Avatar>
@@ -21,6 +23,7 @@ const UserAvatar = () => {
       <PopoverContent>
         <div>
           <Link href="/profile">Profile</Link>
+          <Button variant={"ghost"} onClick={logout}>Logout</Button>
         </div>
       </PopoverContent>
     </Popover>
