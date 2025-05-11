@@ -19,6 +19,7 @@ export const registerSchema = z.object({
 
 export const attackSchema = z.object({
   type:z.string({message:"Type is required"}),
+  video:z.any(),
   description:z.string({message:"Description is required"}),
 //   video:z.any(),
   reportedBy:z.string()

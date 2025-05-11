@@ -4,6 +4,7 @@ export interface IAttack {
     type: string;
     description: string;
     reportedBy: IUser;
+    video:string;
     createdAt: string; // Consider using Date if needed
     updatedAt: string; // Consider using Date if needed
     __v: number;

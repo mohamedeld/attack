@@ -23,13 +23,14 @@ const AttacksPage = async ({params}:IProps) => {
         const attackRes = await getAttacks(pageNum,limitNum,token);
   return (
     <div className="py-4">
-      <div className="flex items-center gap-3 flex-col md:flex-row px-2 flex-wrap">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-3 flex-col md:flex-row px-2">
         {attackRes?.data?.docs?.map((item:IAttack) => {
           return (
             <AttactCard
               type={item?.type}
               description={item?.description}
               key={item?._id}
+              video={item?.video}
             />
           );
         })}
