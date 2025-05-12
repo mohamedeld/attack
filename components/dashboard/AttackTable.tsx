@@ -1,4 +1,4 @@
-import { IAttack, IUser } from "@/lib/types"
+import { IAttack, IUser, Quiz } from "@/lib/types"
 import {
     Table,
     TableBody,
@@ -15,8 +15,10 @@ import { deleteAttack } from "@/actions/attack.action";
 interface IProps{
     attacks:IAttack[];
     users:IUser[]
+    questions:Quiz[]
+    
 }
-const AttackTable = ({attacks,users}:IProps) => {
+const AttackTable = ({attacks,users,questions}:IProps) => {
   return (
     <div className="px-2 py-5">
         <Table className="overflow-y-auto">
@@ -38,7 +40,7 @@ const AttackTable = ({attacks,users}:IProps) => {
             <TableCell>{attack?.reportedBy?.userName}</TableCell>
             <TableCell>
                 <div className="flex items-center gap-3">
-                    <AttackForm update={true} users={users} attack={attack} />
+                    <AttackForm questions={questions} update={true} users={users} attack={attack} />
                     <div>
                     <CustomDelete id={attack?._id} deleteAction={deleteAttack} title="Do you want to delete this attack?"/>
                     </div>

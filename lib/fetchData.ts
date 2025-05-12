@@ -143,3 +143,28 @@ export const getQuiz = async (id:string)=>{
           }
     }
 }
+export const getAttacQuiz = async (id:string)=>{
+    try{
+        const res = await axiosInstance.get(`${baseUrl}attack/${id}/question`);
+        if(res?.status === 200){
+            return {
+                success:true,
+                data:res?.data
+            }
+        }
+    }catch(error){
+        if (axios.isAxiosError(error) && error?.response) {
+            return {
+                success:false,
+                message:error?.response?.data?.message
+            }
+          } else {
+            return {
+                success:false,
+                message:"Something went wrong"
+            }
+          }
+    }
+}
+
+

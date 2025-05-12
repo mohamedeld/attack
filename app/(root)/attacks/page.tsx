@@ -30,6 +30,7 @@ const AttacksPage = async ({params}:IProps) => {
               type={item?.type}
               description={item?.description}
               key={item?._id}
+              id={item?._id}
               video={item?.video}
             />
           );

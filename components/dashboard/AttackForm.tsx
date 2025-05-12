@@ -29,7 +29,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { Button } from "../ui/button";
-import { IAttack, IUser } from "@/lib/types";
+import { IAttack, IUser, Quiz } from "@/lib/types";
 import axios from "axios";
 import { toast } from "sonner";
 import { createAttack, updateAttack } from "@/actions/attack.action";
@@ -40,16 +40,18 @@ import { baseUrl } from "@/lib/utils";
 interface IProps {
     users: IUser[];
     update?: boolean;
-    attack?: IAttack
+    attack?: IAttack;
+    questions:Quiz[]
 }
-const AttackForm = ({ users, update, attack }: IProps) => {
+const AttackForm = ({ users, update, attack,questions }: IProps) => {
     const [open, setOpen] = useState(false);
     const form = useForm<z.infer<typeof attackSchema>>({
         resolver: zodResolver(attackSchema),
         defaultValues: {
             type: attack?.type ? attack?.type : "",
             description: attack?.description ? attack?.description : "",
-            reportedBy: attack?.reportedBy ? attack?.reportedBy?._id : ""
+            reportedBy: attack?.reportedBy ? attack?.reportedBy?._id : "",
+            question: attack?.question ? attack?.question?._id : ""
         },
     })
     const isSubmitting = form.formState.isSubmitting;
@@ -142,14 +144,38 @@ const AttackForm = ({ users, update, attack }: IProps) => {
                         />
                         <FormField
                             control={form.control}
+                            name="question"
+                            render={({ field }) => (
+                                <FormItem className="w-full">
+                                    <FormLabel>Question</FormLabel>
+                                    <Select onValueChange={field.onChange} defaultValue={field.value} >
+                                        <FormControl>
+                                            <SelectTrigger className="w-full">
+                                                <SelectValue placeholder="Select question to add" />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent >
+                                            <SelectItem value="select" disabled>Select Question</SelectItem>
+                                            {questions?.map((question: Quiz) => (
+                                                <SelectItem key={question?._id} value={question?._id}>{question?.title}</SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
                             name="video"
                             render={({ field }) => (
                                 <FormItem className="w-full">
-                                    <FormLabel htmlFor="picture">Picture</FormLabel>
+                                    <FormLabel htmlFor="picture">Vido</FormLabel>
                                     <div className="grid w-full max-w-sm items-center gap-1.5">
                                         <Input
                                             id="video"
                                             type="file"
+                                            className="w-full"
                                             accept="video/*"
                                             disabled={isSubmitting}
                                             onChange={async (e) => {

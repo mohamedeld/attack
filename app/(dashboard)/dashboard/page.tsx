@@ -3,7 +3,7 @@ import AttackForm from "@/components/dashboard/AttackForm"
 import AttackTable from "@/components/dashboard/AttackTable";
 import SubHeader from "@/components/dashboard/SubHeader"
 import NoResult from "@/components/NoResult";
-import { getAttacks, getUsers } from "@/lib/fetchData"
+import { getAttacks, getQuizes, getUsers } from "@/lib/fetchData"
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -23,14 +23,14 @@ const DashboardPage = async ({params}:IProps) => {
     }
     const res = await getUsers(1,10000,token);
     const attackRes = await getAttacks(pageNum,limitNum,token);
-    
+    const questions = await getQuizes(token);
   return (
     <div>
         <SubHeader title="Attacks">
-            <AttackForm users={res?.data?.docs}/>
+            <AttackForm users={res?.data?.docs} questions={questions?.data}/>
         </SubHeader>
         {attackRes?.data?.docs?.length > 0 ? 
-        <AttackTable attacks={attackRes?.data?.docs} users={res?.data?.docs}/>
+        <AttackTable questions={questions?.data} attacks={attackRes?.data?.docs} users={res?.data?.docs}/>
         : <NoResult title="There are no attacks right now"/>
     }
     {attackRes?.data?.totalPages > 1 && <CustomPagination totalPages={attackRes?.data?.totalPages} currentPage={attackRes?.data?.page}/>}

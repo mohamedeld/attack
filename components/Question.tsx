@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { useRouter } from 'next/navigation';
 
 type QuestionType = {
   questionText: string;
@@ -15,7 +16,7 @@ function Question({ questions }: { questions: QuestionType[] }) {
   const [answers, setAnswers] = useState<(string | null)[]>(Array(questions?.length).fill(null));
   const [lockedIndexes, setLockedIndexes] = useState<Set<number>>(new Set());
   const [showResult, setShowResult] = useState(false);
-
+    const router = useRouter();
   const currentQuestion = questions[currentIndex];
   const selectedAnswer = answers[currentIndex];
 
@@ -39,6 +40,14 @@ function Question({ questions }: { questions: QuestionType[] }) {
       setShowResult(true);
     }
   }
+
+  useEffect(() => {
+    if (!showResult) return;
+     const timeout = setTimeout(() => {
+            router.push('/feedback');
+          }, 3000);
+    return () => clearTimeout(timeout);
+  }, [showResult,router]);
 
   function calculateScore() {
     let score = 0;

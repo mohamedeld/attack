@@ -28,21 +28,27 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
-
-const ProfileDetail = () => {
+interface IProps{
+    session:{
+        _id:string;
+    userName:string;
+    phone:string;
+    }
+}
+const ProfileDetail = ({session}:IProps) => {
     const [isPending,startTransition] = useTransition();
     const router = useRouter();
     const form = useForm<z.infer<typeof userSchema>>({
             resolver: zodResolver(userSchema),
             defaultValues: {
-              phone: "",
-              userName:""
+              phone: session?.phone,
+              userName:session?.userName
             },
           })
 
           const onSubmit = async (data:z.infer<typeof userSchema>)=>{
             try{
-                const res = await updateUser("123",data?.userName);
+                const res = await updateUser(session?._id,data?.userName);
                 if(!res?.success){
                     toast.error(res?.message);
                     return;
@@ -62,7 +68,7 @@ const ProfileDetail = () => {
           const deleteAccount = async()=>{
             try{
                 startTransition(async ()=>{
-                    const res = await deleteUser("123");
+                    const res = await deleteUser(session?._id);
                     if(!res?.success){
                         toast.error(res?.message);
                         return;
@@ -80,7 +86,9 @@ const ProfileDetail = () => {
           }
   return (
     <div>
-        <Button variant={"destructive"} onClick={deleteAccount} disabled={isPending}>{isPending ? 'Deleting...' : 'Delete Account'}</Button>
+       <div className="py-5">
+         <Button variant={"destructive"} onClick={deleteAccount} disabled={isPending}>{isPending ? 'Deleting...' : 'Delete Account'}</Button>
+       </div>
         <Card className="w-[400px]">
       <CardHeader className="text-center">
         <CardTitle></CardTitle>
@@ -97,6 +105,19 @@ const ProfileDetail = () => {
             <FormLabel>Phone</FormLabel>
             <FormControl>
               <Input placeholder="Phone" disabled {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="userName"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>User Name</FormLabel>
+            <FormControl>
+              <Input placeholder="username" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>

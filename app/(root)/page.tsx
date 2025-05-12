@@ -21,7 +21,7 @@ const RootPage = async () => {
         <div className="flex items-center gap-3 flex-col md:flex-row px-2">
         {attacks?.data?.docs?.map((item:IAttack)=>{
             return (
-                    <AttactCard type={item?.type} description={item?.description} key={item?._id}/>
+                    <AttactCard type={item?.type} description={item?.description} key={item?._id} id={item?._id} video={item?.video}/>
                 )
             })}
             </div>

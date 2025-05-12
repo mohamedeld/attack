@@ -5,6 +5,11 @@ export interface IAttack {
     description: string;
     reportedBy: IUser;
     video:string;
+    question:{
+        _id:string;
+        title:string;
+        questions:Question[];
+    };
     createdAt: string; // Consider using Date if needed
     updatedAt: string; // Consider using Date if needed
     __v: number;

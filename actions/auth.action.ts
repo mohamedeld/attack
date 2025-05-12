@@ -61,8 +61,13 @@ export const register = async (userName:string,phone:string,password:string)=>{
 }
 
 export const getSession = cache(async ()=>{
+    const token = (await cookies())?.get("token")?.value;
     try{
-        const res = await axiosInstance.get('auth/profile');
+        const res = await axiosInstance.get('auth/me',{
+            headers:{
+                Authorization:`Bearer ${token}`
+            }
+        });
         if(res?.status === 200){
             return {
                 success:true,
@@ -156,3 +161,5 @@ export const deleteUser = async (id:string)=>{
           }
     }
 }
+
+

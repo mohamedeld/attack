@@ -1,9 +1,11 @@
+import { getSession } from "@/actions/auth.action"
 import ProfileDetail from "@/components/profile/profileDetail"
 
-const ProfilePage = () => {
+const ProfilePage = async () => {
+    const session = await getSession();
   return (
     <div className="flex flex-col gap-2 h-[90vh] justify-center items-center">
-        <ProfileDetail/>
+        <ProfileDetail session={session?.data}/>
     </div>
   )
 }

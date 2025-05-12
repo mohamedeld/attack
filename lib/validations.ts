@@ -22,7 +22,8 @@ export const attackSchema = z.object({
   video:z.any(),
   description:z.string({message:"Description is required"}),
 //   video:z.any(),
-  reportedBy:z.string()
+  reportedBy:z.string(),
+  question:z.string(),
 })
 
 export type AttackData = z.infer<typeof attackSchema>;

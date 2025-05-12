@@ -28,13 +28,19 @@ import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
 import { createFeedback } from "@/actions/attack.action";
 
-
-const FeedbackForm = () => {
+interface IProps{
+    session:{
+        _id:string;
+    userName:string;
+    phone:string;
+    }
+}
+const FeedbackForm = ({session}:IProps) => {
     const router = useRouter();
     const form = useForm<z.infer<typeof feedbackSchema>>({
             resolver: zodResolver(feedbackSchema),
             defaultValues: {
-              user: "",
+              user: session?._id,
               content:""
             },
           })
@@ -46,8 +52,8 @@ const FeedbackForm = () => {
                     toast.error(res?.message);
                     return;
                 }
-                toast.success(res?.message);
-                router.refresh();
+                toast.success(res?.message || "Thanks alot");
+                router.push("/");
             }catch(error){
                 if (axios.isAxiosError(error) && error?.response) {
                                 toast.error(error?.response?.data?.message)
