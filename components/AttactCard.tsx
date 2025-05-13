@@ -1,3 +1,4 @@
+'use client';
 import {
     Card,
     CardContent,
@@ -18,8 +19,9 @@ const AttactCard = ({type,description,video,id}:IProps) => {
     <Card className="w-full cursor-pointer">
         <div className="">
         <video
-            src={video}
+            src={`${video}`}
             controls
+            autoPlay
             className="w-full rounded-xl shadow-lg"
             preload="metadata"
           />
