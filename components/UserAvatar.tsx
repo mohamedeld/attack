@@ -21,9 +21,9 @@ const UserAvatar = () => {
         </Avatar>
       </PopoverTrigger>
       <PopoverContent>
-        <div>
-          <Link href="/profile">Profile</Link>
-          <Button variant={"ghost"} onClick={logout}>Logout</Button>
+        <div className="flex items-center flex-col gap-4">
+          <Link href="/profile" className="hover:bg-gray-500">Profile</Link>
+          <Button variant={"ghost"} className="hover:bg-gray-500" onClick={logout}>Logout</Button>
         </div>
       </PopoverContent>
     </Popover>

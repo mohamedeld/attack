@@ -53,7 +53,7 @@ const ProfileDetail = ({session}:IProps) => {
                     toast.error(res?.message);
                     return;
                 }
-                toast.success(res?.message);
+                toast.success(res?.message|| "user updated successfully");
                 router.refresh();
             }catch(error){
                 if (axios.isAxiosError(error) && error?.response) {

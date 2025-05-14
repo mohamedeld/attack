@@ -60,7 +60,7 @@ export const register = async (userName:string,phone:string,password:string)=>{
     }
 }
 
-export const getSession = cache(async ()=>{
+export const getSession = async ()=>{
     const token = (await cookies())?.get("token")?.value;
     try{
         const res = await axiosInstance.get('auth/me',{
@@ -87,7 +87,7 @@ export const getSession = cache(async ()=>{
             }
           }
     }
-})
+}
 
 
 export const logout = async ()=>{
