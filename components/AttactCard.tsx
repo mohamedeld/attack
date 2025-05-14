@@ -21,7 +21,6 @@ const AttactCard = ({type,description,video,id}:IProps) => {
         <video
             src={`${video}`}
             controls
-            autoPlay
             className="w-full rounded-xl shadow-lg"
             preload="metadata"
           />
