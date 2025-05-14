@@ -29,10 +29,13 @@ export async function middleware(req: NextRequest) {
 
 export const config = {
   matcher: [
-    
+      '/',
+    '/attacks',
+    '/questions',
+    '/feedback',
+    '/dashboard',
+    '/feeddash',
+    '/profile',
+    '/quizes'
   ],
 };
-// '/',
-//     '/attacks',
-//     '/questions',
-//     '/feedback'

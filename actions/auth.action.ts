@@ -4,7 +4,6 @@ import axiosInstance from "@/lib/axiosInstance";
 import axios from "axios";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
-import { cache } from "react";
 
 export const login = async (phone:string,password:string)=>{
     try{

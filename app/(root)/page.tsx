@@ -1,3 +1,4 @@
+import { getSession } from '@/actions/auth.action'
 import AboutUs from '@/components/About'
 import AttactCard from '@/components/AttactCard'
 import Hero from '@/components/Hero'
@@ -12,6 +13,10 @@ const RootPage = async () => {
     const token = (await cookies())?.get("token")?.value;
     if(!token){
         redirect("/login")
+    }
+    const session = await getSession();
+    if(session?.data?.role === "admin"){
+        redirect("/dashboard")
     }
     const attacks = await getAttacks(1,4,token);
   return (

@@ -15,9 +15,9 @@ const dashSidebar = [
         link: "/dashboard"
     },
     {
-        title: "Settings",
+        title: "Feedback",
         icon: <Settings />,
-        link: "/settings"
+        link: "/feeddash"
     },
     {
         title: "Profile",

@@ -1,3 +1,4 @@
+import { getSession } from "@/actions/auth.action";
 import CustomPagination from "@/components/CustomPagination";
 import AttackForm from "@/components/dashboard/AttackForm"
 import AttackTable from "@/components/dashboard/AttackTable";
@@ -21,6 +22,10 @@ const DashboardPage = async ({params}:IProps) => {
     if(!token){
         redirect("/login")
     }
+    const session = await getSession();
+        if(session?.data?.role !== "admin"){
+            redirect("/")
+        }
     const res = await getUsers(1,10000,token);
     const attackRes = await getAttacks(pageNum,limitNum,token);
     const questions = await getQuizes(token);
